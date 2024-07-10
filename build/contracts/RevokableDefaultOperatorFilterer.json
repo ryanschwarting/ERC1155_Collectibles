@@ -1,0 +1,471 @@
+{
+  "contractName": "RevokableDefaultOperatorFilterer",
+  "abi": [
+    {
+      "inputs": [],
+      "name": "InitialRegistryAddressCannotBeZeroAddress",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "OnlyOwner",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "operator",
+          "type": "address"
+        }
+      ],
+      "name": "OperatorNotAllowed",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "RegistryHasBeenRevoked",
+      "type": "error"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "newRegistry",
+          "type": "address"
+        }
+      ],
+      "name": "OperatorFilterRegistryAddressUpdated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [],
+      "name": "OperatorFilterRegistryRevoked",
+      "type": "event"
+    },
+    {
+      "inputs": [],
+      "name": "isOperatorFilterRegistryRevoked",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "operatorFilterRegistry",
+      "outputs": [
+        {
+          "internalType": "contract IOperatorFilterRegistry",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "revokeOperatorFilterRegistry",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "newRegistry",
+          "type": "address"
+        }
+      ],
+      "name": "updateOperatorFilterRegistryAddress",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.8.21+commit.d9974bed\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"InitialRegistryAddressCannotBeZeroAddress\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"OnlyOwner\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"operator\",\"type\":\"address\"}],\"name\":\"OperatorNotAllowed\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"RegistryHasBeenRevoked\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"newRegistry\",\"type\":\"address\"}],\"name\":\"OperatorFilterRegistryAddressUpdated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[],\"name\":\"OperatorFilterRegistryRevoked\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"isOperatorFilterRegistryRevoked\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"operatorFilterRegistry\",\"outputs\":[{\"internalType\":\"contract IOperatorFilterRegistry\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"revokeOperatorFilterRegistry\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newRegistry\",\"type\":\"address\"}],\"name\":\"updateOperatorFilterRegistryAddress\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"errors\":{\"InitialRegistryAddressCannotBeZeroAddress()\":[{\"details\":\"Emitted when the initial registry address is attempted to be set to the zero address.\"}],\"OnlyOwner()\":[{\"details\":\"Emitted when someone other than the owner is trying to call an only owner function.\"}],\"OperatorNotAllowed(address)\":[{\"details\":\"Emitted when an operator is not allowed.\"}],\"RegistryHasBeenRevoked()\":[{\"details\":\"Emitted when the registry has already been revoked.\"}]},\"kind\":\"dev\",\"methods\":{\"constructor\":{\"details\":\"The constructor that is called when the contract is being deployed.\"},\"owner()\":{\"details\":\"Assume the contract has an owner, but leave specific Ownable implementation up to inheriting contract.\"}},\"title\":\"RevokableDefaultOperatorFilterer\",\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{\"revokeOperatorFilterRegistry()\":{\"notice\":\"Revoke the OperatorFilterRegistry address, permanently bypassing checks. OnlyOwner.\"},\"updateOperatorFilterRegistryAddress(address)\":{\"notice\":\"Update the address that the contract will make OperatorFilter checks against. When set to the zero         address, checks will be permanently bypassed, and the address cannot be updated again. OnlyOwner.\"}},\"notice\":\"Inherits from RevokableOperatorFilterer and automatically subscribes to the default OpenSea subscription.         Note that OpenSea will disable creator earnings enforcement if filtered operators begin fulfilling orders         on-chain, eg, if the registry is revoked or bypassed.\",\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/default_operator_contracts/RevokableDefaultOperatorFilterer.sol\":\"RevokableDefaultOperatorFilterer\"},\"evmVersion\":\"shanghai\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/default_operator_contracts/IOperatorFilterRegistry.sol\":{\"keccak256\":\"0x237831b46c9db03a851c1d7a6122ab05743f35cc7613d25e3006c296f2dabdb8\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://ffabd3153a5d39dd2899934fc95ea9f8188df26181c1c35d79e5b51ce6466605\",\"dweb:/ipfs/QmVYjS5rPxTEFuRWWp34DVnEzsA6AbYZYazUH4qRhGLnyp\"]},\"project:/contracts/default_operator_contracts/RevokableDefaultOperatorFilterer.sol\":{\"keccak256\":\"0xde7759020eae60e9861ec1b9c28b42cbb9cdcc0b522e3dad0fe33a1d677fe3f8\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://c9c4f4b97431a70e0b4a7e4a58a1ab3772e81ca67b5313b4decfb84540d4df75\",\"dweb:/ipfs/QmUzSBxCZ1KRZtts8ELrETSpkThPodxmX8oSbKfJC843zX\"]},\"project:/contracts/default_operator_contracts/RevokableOperatorFilterer.sol\":{\"keccak256\":\"0x11bac86f157bea62228e4a9957147ab8106e0ee54bb7849ef7cd608048ad4ef9\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://8c938a7577f856745fa926504dd163c6bcff8568716f2b4e4c3d20a96f394e5d\",\"dweb:/ipfs/Qma5gHbxWVL8t9apj2EtceXzsA3LUJDFSJRyoRaR3afa5P\"]},\"project:/contracts/default_operator_contracts/UpdatableOperatorFilterer.sol\":{\"keccak256\":\"0xfc613d33100be9eb4a10a1c05702c3db173d47c805a3b02a7b9a9db54f0bf546\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://814a47e09c95db7545743f00981e9bdfc750bb39cced502a0a954f01d92656af\",\"dweb:/ipfs/QmT4Ct4bLPAhrQgGx4Si6zv5iQkbEFJX7yDDdgt1397ucD\"]}},\"version\":1}",
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "immutableReferences": {},
+  "generatedSources": [],
+  "deployedGeneratedSources": [],
+  "sourceMap": "",
+  "deployedSourceMap": "",
+  "source": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.13;\n\nimport {RevokableOperatorFilterer} from \"./RevokableOperatorFilterer.sol\";\naddress constant CANONICAL_OPERATOR_FILTER_REGISTRY_ADDRESS = 0x000000000000AAeB6D7670E522A718067333cd4E;\naddress constant CANONICAL_CORI_SUBSCRIPTION = 0x3cc6CddA760b79bAfa08dF41ECFA224f810dCeB6;\n\n/**\n * @title  RevokableDefaultOperatorFilterer\n * @notice Inherits from RevokableOperatorFilterer and automatically subscribes to the default OpenSea subscription.\n *         Note that OpenSea will disable creator earnings enforcement if filtered operators begin fulfilling orders\n *         on-chain, eg, if the registry is revoked or bypassed.\n */\n\nabstract contract RevokableDefaultOperatorFilterer is\n    RevokableOperatorFilterer\n{\n    /// @dev The constructor that is called when the contract is being deployed.\n    constructor()\n        RevokableOperatorFilterer(\n            CANONICAL_OPERATOR_FILTER_REGISTRY_ADDRESS,\n            CANONICAL_CORI_SUBSCRIPTION,\n            true\n        )\n    {}\n}\n",
+  "sourcePath": "/Users/atlas-ryan/Downloads/projects/serial-killers-contract/contracts/default_operator_contracts/RevokableDefaultOperatorFilterer.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/default_operator_contracts/RevokableDefaultOperatorFilterer.sol",
+    "exportedSymbols": {
+      "CANONICAL_CORI_SUBSCRIPTION": [
+        7117
+      ],
+      "CANONICAL_OPERATOR_FILTER_REGISTRY_ADDRESS": [
+        7114
+      ],
+      "RevokableDefaultOperatorFilterer": [
+        7131
+      ],
+      "RevokableOperatorFilterer": [
+        7249
+      ]
+    },
+    "id": 7132,
+    "license": "MIT",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 7109,
+        "literals": [
+          "solidity",
+          "^",
+          "0.8",
+          ".13"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "32:24:26"
+      },
+      {
+        "absolutePath": "project:/contracts/default_operator_contracts/RevokableOperatorFilterer.sol",
+        "file": "./RevokableOperatorFilterer.sol",
+        "id": 7111,
+        "nameLocation": "-1:-1:-1",
+        "nodeType": "ImportDirective",
+        "scope": 7132,
+        "sourceUnit": 7250,
+        "src": "58:74:26",
+        "symbolAliases": [
+          {
+            "foreign": {
+              "id": 7110,
+              "name": "RevokableOperatorFilterer",
+              "nodeType": "Identifier",
+              "overloadedDeclarations": [],
+              "referencedDeclaration": 7249,
+              "src": "66:25:26",
+              "typeDescriptions": {}
+            },
+            "nameLocation": "-1:-1:-1"
+          }
+        ],
+        "unitAlias": ""
+      },
+      {
+        "constant": true,
+        "id": 7114,
+        "mutability": "constant",
+        "name": "CANONICAL_OPERATOR_FILTER_REGISTRY_ADDRESS",
+        "nameLocation": "150:42:26",
+        "nodeType": "VariableDeclaration",
+        "scope": 7132,
+        "src": "133:104:26",
+        "stateVariable": false,
+        "storageLocation": "default",
+        "typeDescriptions": {
+          "typeIdentifier": "t_address",
+          "typeString": "address"
+        },
+        "typeName": {
+          "id": 7112,
+          "name": "address",
+          "nodeType": "ElementaryTypeName",
+          "src": "133:7:26",
+          "stateMutability": "nonpayable",
+          "typeDescriptions": {
+            "typeIdentifier": "t_address",
+            "typeString": "address"
+          }
+        },
+        "value": {
+          "hexValue": "307830303030303030303030303041416542364437363730453532324137313830363733333363643445",
+          "id": 7113,
+          "isConstant": false,
+          "isLValue": false,
+          "isPure": true,
+          "kind": "number",
+          "lValueRequested": false,
+          "nodeType": "Literal",
+          "src": "195:42:26",
+          "typeDescriptions": {
+            "typeIdentifier": "t_address",
+            "typeString": "address"
+          },
+          "value": "0x000000000000AAeB6D7670E522A718067333cd4E"
+        },
+        "visibility": "internal"
+      },
+      {
+        "constant": true,
+        "id": 7117,
+        "mutability": "constant",
+        "name": "CANONICAL_CORI_SUBSCRIPTION",
+        "nameLocation": "256:27:26",
+        "nodeType": "VariableDeclaration",
+        "scope": 7132,
+        "src": "239:89:26",
+        "stateVariable": false,
+        "storageLocation": "default",
+        "typeDescriptions": {
+          "typeIdentifier": "t_address",
+          "typeString": "address"
+        },
+        "typeName": {
+          "id": 7115,
+          "name": "address",
+          "nodeType": "ElementaryTypeName",
+          "src": "239:7:26",
+          "stateMutability": "nonpayable",
+          "typeDescriptions": {
+            "typeIdentifier": "t_address",
+            "typeString": "address"
+          }
+        },
+        "value": {
+          "hexValue": "307833636336436464413736306237396241666130386446343145434641323234663831306443654236",
+          "id": 7116,
+          "isConstant": false,
+          "isLValue": false,
+          "isPure": true,
+          "kind": "number",
+          "lValueRequested": false,
+          "nodeType": "Literal",
+          "src": "286:42:26",
+          "typeDescriptions": {
+            "typeIdentifier": "t_address",
+            "typeString": "address"
+          },
+          "value": "0x3cc6CddA760b79bAfa08dF41ECFA224f810dCeB6"
+        },
+        "visibility": "internal"
+      },
+      {
+        "abstract": true,
+        "baseContracts": [
+          {
+            "baseName": {
+              "id": 7119,
+              "name": "RevokableOperatorFilterer",
+              "nameLocations": [
+                "741:25:26"
+              ],
+              "nodeType": "IdentifierPath",
+              "referencedDeclaration": 7249,
+              "src": "741:25:26"
+            },
+            "id": 7120,
+            "nodeType": "InheritanceSpecifier",
+            "src": "741:25:26"
+          }
+        ],
+        "canonicalName": "RevokableDefaultOperatorFilterer",
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": {
+          "id": 7118,
+          "nodeType": "StructuredDocumentation",
+          "src": "331:350:26",
+          "text": " @title  RevokableDefaultOperatorFilterer\n @notice Inherits from RevokableOperatorFilterer and automatically subscribes to the default OpenSea subscription.\n         Note that OpenSea will disable creator earnings enforcement if filtered operators begin fulfilling orders\n         on-chain, eg, if the registry is revoked or bypassed."
+        },
+        "fullyImplemented": false,
+        "id": 7131,
+        "linearizedBaseContracts": [
+          7131,
+          7249,
+          7453
+        ],
+        "name": "RevokableDefaultOperatorFilterer",
+        "nameLocation": "701:32:26",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": {
+              "id": 7129,
+              "nodeType": "Block",
+              "src": "1031:2:26",
+              "statements": []
+            },
+            "documentation": {
+              "id": 7121,
+              "nodeType": "StructuredDocumentation",
+              "src": "773:76:26",
+              "text": "@dev The constructor that is called when the contract is being deployed."
+            },
+            "id": 7130,
+            "implemented": true,
+            "kind": "constructor",
+            "modifiers": [
+              {
+                "arguments": [
+                  {
+                    "id": 7124,
+                    "name": "CANONICAL_OPERATOR_FILTER_REGISTRY_ADDRESS",
+                    "nodeType": "Identifier",
+                    "overloadedDeclarations": [],
+                    "referencedDeclaration": 7114,
+                    "src": "915:42:26",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  {
+                    "id": 7125,
+                    "name": "CANONICAL_CORI_SUBSCRIPTION",
+                    "nodeType": "Identifier",
+                    "overloadedDeclarations": [],
+                    "referencedDeclaration": 7117,
+                    "src": "971:27:26",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  {
+                    "hexValue": "74727565",
+                    "id": 7126,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": true,
+                    "kind": "bool",
+                    "lValueRequested": false,
+                    "nodeType": "Literal",
+                    "src": "1012:4:26",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    },
+                    "value": "true"
+                  }
+                ],
+                "id": 7127,
+                "kind": "baseConstructorSpecifier",
+                "modifierName": {
+                  "id": 7123,
+                  "name": "RevokableOperatorFilterer",
+                  "nameLocations": [
+                    "876:25:26"
+                  ],
+                  "nodeType": "IdentifierPath",
+                  "referencedDeclaration": 7249,
+                  "src": "876:25:26"
+                },
+                "nodeType": "ModifierInvocation",
+                "src": "876:150:26"
+              }
+            ],
+            "name": "",
+            "nameLocation": "-1:-1:-1",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 7122,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "865:2:26"
+            },
+            "returnParameters": {
+              "id": 7128,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "1031:0:26"
+            },
+            "scope": 7131,
+            "src": "854:179:26",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "internal"
+          }
+        ],
+        "scope": 7132,
+        "src": "683:352:26",
+        "usedErrors": [
+          7143,
+          7146,
+          7259,
+          7262
+        ],
+        "usedEvents": [
+          7148,
+          7266
+        ]
+      }
+    ],
+    "src": "32:1004:26"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.8.21+commit.d9974bed.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.13",
+  "updatedAt": "2023-08-19T19:16:06.999Z",
+  "devdoc": {
+    "errors": {
+      "InitialRegistryAddressCannotBeZeroAddress()": [
+        {
+          "details": "Emitted when the initial registry address is attempted to be set to the zero address."
+        }
+      ],
+      "OnlyOwner()": [
+        {
+          "details": "Emitted when someone other than the owner is trying to call an only owner function."
+        }
+      ],
+      "OperatorNotAllowed(address)": [
+        {
+          "details": "Emitted when an operator is not allowed."
+        }
+      ],
+      "RegistryHasBeenRevoked()": [
+        {
+          "details": "Emitted when the registry has already been revoked."
+        }
+      ]
+    },
+    "kind": "dev",
+    "methods": {
+      "constructor": {
+        "details": "The constructor that is called when the contract is being deployed."
+      },
+      "owner()": {
+        "details": "Assume the contract has an owner, but leave specific Ownable implementation up to inheriting contract."
+      }
+    },
+    "title": "RevokableDefaultOperatorFilterer",
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {
+      "revokeOperatorFilterRegistry()": {
+        "notice": "Revoke the OperatorFilterRegistry address, permanently bypassing checks. OnlyOwner."
+      },
+      "updateOperatorFilterRegistryAddress(address)": {
+        "notice": "Update the address that the contract will make OperatorFilter checks against. When set to the zero         address, checks will be permanently bypassed, and the address cannot be updated again. OnlyOwner."
+      }
+    },
+    "notice": "Inherits from RevokableOperatorFilterer and automatically subscribes to the default OpenSea subscription.         Note that OpenSea will disable creator earnings enforcement if filtered operators begin fulfilling orders         on-chain, eg, if the registry is revoked or bypassed.",
+    "version": 1
+  }
+}

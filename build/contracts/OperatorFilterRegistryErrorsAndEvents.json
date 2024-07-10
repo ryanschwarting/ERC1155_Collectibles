@@ -1,0 +1,1825 @@
+{
+  "contractName": "OperatorFilterRegistryErrorsAndEvents",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "operator",
+          "type": "address"
+        }
+      ],
+      "name": "AddressAlreadyFiltered",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "filtered",
+          "type": "address"
+        }
+      ],
+      "name": "AddressFiltered",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "operator",
+          "type": "address"
+        }
+      ],
+      "name": "AddressNotFiltered",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "AlreadyRegistered",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "subscription",
+          "type": "address"
+        }
+      ],
+      "name": "AlreadySubscribed",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "CannotCopyFromSelf",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "CannotFilterEOAs",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "registrant",
+          "type": "address"
+        }
+      ],
+      "name": "CannotSubscribeToRegistrantWithSubscription",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "CannotSubscribeToSelf",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "CannotSubscribeToZeroAddress",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "subscription",
+          "type": "address"
+        }
+      ],
+      "name": "CannotUpdateWhileSubscribed",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "codeHash",
+          "type": "bytes32"
+        }
+      ],
+      "name": "CodeHashAlreadyFiltered",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "codeHash",
+          "type": "bytes32"
+        }
+      ],
+      "name": "CodeHashFiltered",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "codeHash",
+          "type": "bytes32"
+        }
+      ],
+      "name": "CodeHashNotFiltered",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "NotOwnable",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "registrant",
+          "type": "address"
+        }
+      ],
+      "name": "NotRegistered",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "NotSubscribed",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "OnlyAddressOrOwner",
+      "type": "error"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "registrant",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "bytes32",
+          "name": "codeHash",
+          "type": "bytes32"
+        },
+        {
+          "indexed": true,
+          "internalType": "bool",
+          "name": "filtered",
+          "type": "bool"
+        }
+      ],
+      "name": "CodeHashUpdated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "registrant",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "bytes32[]",
+          "name": "codeHashes",
+          "type": "bytes32[]"
+        },
+        {
+          "indexed": true,
+          "internalType": "bool",
+          "name": "filtered",
+          "type": "bool"
+        }
+      ],
+      "name": "CodeHashesUpdated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "registrant",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "operator",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "bool",
+          "name": "filtered",
+          "type": "bool"
+        }
+      ],
+      "name": "OperatorUpdated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "registrant",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "address[]",
+          "name": "operators",
+          "type": "address[]"
+        },
+        {
+          "indexed": true,
+          "internalType": "bool",
+          "name": "filtered",
+          "type": "bool"
+        }
+      ],
+      "name": "OperatorsUpdated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "registrant",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "bool",
+          "name": "registered",
+          "type": "bool"
+        }
+      ],
+      "name": "RegistrationUpdated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "registrant",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "subscription",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "bool",
+          "name": "subscribed",
+          "type": "bool"
+        }
+      ],
+      "name": "SubscriptionUpdated",
+      "type": "event"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.8.21+commit.d9974bed\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"operator\",\"type\":\"address\"}],\"name\":\"AddressAlreadyFiltered\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"filtered\",\"type\":\"address\"}],\"name\":\"AddressFiltered\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"operator\",\"type\":\"address\"}],\"name\":\"AddressNotFiltered\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"AlreadyRegistered\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"subscription\",\"type\":\"address\"}],\"name\":\"AlreadySubscribed\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CannotCopyFromSelf\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CannotFilterEOAs\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"registrant\",\"type\":\"address\"}],\"name\":\"CannotSubscribeToRegistrantWithSubscription\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CannotSubscribeToSelf\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"CannotSubscribeToZeroAddress\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"subscription\",\"type\":\"address\"}],\"name\":\"CannotUpdateWhileSubscribed\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"codeHash\",\"type\":\"bytes32\"}],\"name\":\"CodeHashAlreadyFiltered\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"internalType\":\"bytes32\",\"name\":\"codeHash\",\"type\":\"bytes32\"}],\"name\":\"CodeHashFiltered\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"codeHash\",\"type\":\"bytes32\"}],\"name\":\"CodeHashNotFiltered\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"NotOwnable\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"registrant\",\"type\":\"address\"}],\"name\":\"NotRegistered\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"NotSubscribed\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"OnlyAddressOrOwner\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"registrant\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"codeHash\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"bool\",\"name\":\"filtered\",\"type\":\"bool\"}],\"name\":\"CodeHashUpdated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"registrant\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bytes32[]\",\"name\":\"codeHashes\",\"type\":\"bytes32[]\"},{\"indexed\":true,\"internalType\":\"bool\",\"name\":\"filtered\",\"type\":\"bool\"}],\"name\":\"CodeHashesUpdated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"registrant\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"operator\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"bool\",\"name\":\"filtered\",\"type\":\"bool\"}],\"name\":\"OperatorUpdated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"registrant\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address[]\",\"name\":\"operators\",\"type\":\"address[]\"},{\"indexed\":true,\"internalType\":\"bool\",\"name\":\"filtered\",\"type\":\"bool\"}],\"name\":\"OperatorsUpdated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"registrant\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"bool\",\"name\":\"registered\",\"type\":\"bool\"}],\"name\":\"RegistrationUpdated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"registrant\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"subscription\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"bool\",\"name\":\"subscribed\",\"type\":\"bool\"}],\"name\":\"SubscriptionUpdated\",\"type\":\"event\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"errors\":{\"AddressAlreadyFiltered(address)\":[{\"notice\":\"Emitted when trying to add an address that is already filtered.\"}],\"AddressFiltered(address)\":[{\"notice\":\"Emitted when an address is filtered.\"}],\"AddressNotFiltered(address)\":[{\"notice\":\"Emitted when trying to remove an address that is not filtered.\"}],\"AlreadyRegistered()\":[{\"notice\":\"Emitted when the registrant is already registered.\"}],\"AlreadySubscribed(address)\":[{\"notice\":\"Emitted when the registrant is already subscribed.\"}],\"CannotCopyFromSelf()\":[{\"notice\":\"Emitted when trying to copy a registration from itself.\"}],\"CannotFilterEOAs()\":[{\"notice\":\"Emitted when trying to register an address that has no code.\"}],\"CannotSubscribeToRegistrantWithSubscription(address)\":[{\"notice\":\"Emited when trying to register to a registrant with a subscription.\"}],\"CannotSubscribeToSelf()\":[{\"notice\":\"Emitted when trying to subscribe to itself.\"}],\"CannotSubscribeToZeroAddress()\":[{\"notice\":\"Emitted when trying to subscribe to the zero address.\"}],\"CannotUpdateWhileSubscribed(address)\":[{\"notice\":\"Emitted when trying to update a registration where the registrant is already subscribed.\"}],\"CodeHashAlreadyFiltered(bytes32)\":[{\"notice\":\"Emitted when trying to add a codehash that is already filtered.\"}],\"CodeHashFiltered(address,bytes32)\":[{\"notice\":\"Emitted when a codeHash is filtered.\"}],\"CodeHashNotFiltered(bytes32)\":[{\"notice\":\"Emitted when trying to remove a codehash that is not filtered.\"}],\"NotOwnable()\":[{\"notice\":\"Emitted when trying to register and the contract is not ownable (EIP-173 \\\"owner()\\\")\"}],\"NotRegistered(address)\":[{\"notice\":\"Emitted when the registrant is not registered.\"}],\"NotSubscribed()\":[{\"notice\":\"Emitted when the registrant is not subscribed.\"}],\"OnlyAddressOrOwner()\":[{\"notice\":\"Emitted when the caller is not the address or EIP-173 \\\"owner()\\\"\"}]},\"events\":{\"CodeHashUpdated(address,bytes32,bool)\":{\"notice\":\"Emitted when a codeHash is updated.\"},\"CodeHashesUpdated(address,bytes32[],bool)\":{\"notice\":\"Emitted when multiple codeHashes are updated.\"},\"OperatorUpdated(address,address,bool)\":{\"notice\":\"Emitted when an operator is updated.\"},\"OperatorsUpdated(address,address[],bool)\":{\"notice\":\"Emitted when multiple operators are updated.\"},\"RegistrationUpdated(address,bool)\":{\"notice\":\"Emitted when a registration is updated.\"},\"SubscriptionUpdated(address,address,bool)\":{\"notice\":\"Emitted when a subscription is updated.\"}},\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/default_operator_contracts/OperatorFilterRegistryErrorsAndEvents.sol\":\"OperatorFilterRegistryErrorsAndEvents\"},\"evmVersion\":\"shanghai\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/default_operator_contracts/OperatorFilterRegistryErrorsAndEvents.sol\":{\"keccak256\":\"0xab1ef4a57380ea6923b6476301f357c7d91c0c60d30e25dc305ccb7b0159a05c\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://d2fdf0e7473acb84f2565de586932d12ac5f0bd5176e0330de26a9ddb39c81f0\",\"dweb:/ipfs/QmcJkonrbzr66hA9zcFBBDLLM5GE8dA1VqnCncXmtex19T\"]}},\"version\":1}",
+  "bytecode": "0x6080604052348015600e575f80fd5b50603e80601a5f395ff3fe60806040525f80fdfea264697066735822122003c9e6bf0c8288b72657ab321cfb1e875a4705be0f33ae613eaffd9a53589d1764736f6c63430008150033",
+  "deployedBytecode": "0x60806040525f80fdfea264697066735822122003c9e6bf0c8288b72657ab321cfb1e875a4705be0f33ae613eaffd9a53589d1764736f6c63430008150033",
+  "immutableReferences": {},
+  "generatedSources": [],
+  "deployedGeneratedSources": [],
+  "sourceMap": "58:3320:23:-:0;;;;;;;;;;;;;;;;;;;",
+  "deployedSourceMap": "58:3320:23:-:0;;;;;",
+  "source": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.13;\n\ncontract OperatorFilterRegistryErrorsAndEvents {\n    /// @notice Emitted when trying to register an address that has no code.\n    error CannotFilterEOAs();\n\n    /// @notice Emitted when trying to add an address that is already filtered.\n    error AddressAlreadyFiltered(address operator);\n\n    /// @notice Emitted when trying to remove an address that is not filtered.\n    error AddressNotFiltered(address operator);\n\n    /// @notice Emitted when trying to add a codehash that is already filtered.\n    error CodeHashAlreadyFiltered(bytes32 codeHash);\n\n    /// @notice Emitted when trying to remove a codehash that is not filtered.\n    error CodeHashNotFiltered(bytes32 codeHash);\n\n    /// @notice Emitted when the caller is not the address or EIP-173 \"owner()\"\n    error OnlyAddressOrOwner();\n\n    /// @notice Emitted when the registrant is not registered.\n    error NotRegistered(address registrant);\n\n    /// @notice Emitted when the registrant is already registered.\n    error AlreadyRegistered();\n\n    /// @notice Emitted when the registrant is already subscribed.\n    error AlreadySubscribed(address subscription);\n\n    /// @notice Emitted when the registrant is not subscribed.\n    error NotSubscribed();\n\n    /// @notice Emitted when trying to update a registration where the registrant is already subscribed.\n    error CannotUpdateWhileSubscribed(address subscription);\n\n    /// @notice Emitted when trying to subscribe to itself.\n    error CannotSubscribeToSelf();\n\n    /// @notice Emitted when trying to subscribe to the zero address.\n    error CannotSubscribeToZeroAddress();\n\n    /// @notice Emitted when trying to register and the contract is not ownable (EIP-173 \"owner()\")\n    error NotOwnable();\n\n    /// @notice Emitted when an address is filtered.\n    error AddressFiltered(address filtered);\n\n    /// @notice Emitted when a codeHash is filtered.\n    error CodeHashFiltered(address account, bytes32 codeHash);\n\n    /// @notice Emited when trying to register to a registrant with a subscription.\n    error CannotSubscribeToRegistrantWithSubscription(address registrant);\n\n    /// @notice Emitted when trying to copy a registration from itself.\n    error CannotCopyFromSelf();\n\n    /// @notice Emitted when a registration is updated.\n    event RegistrationUpdated(\n        address indexed registrant,\n        bool indexed registered\n    );\n\n    /// @notice Emitted when an operator is updated.\n    event OperatorUpdated(\n        address indexed registrant,\n        address indexed operator,\n        bool indexed filtered\n    );\n\n    /// @notice Emitted when multiple operators are updated.\n    event OperatorsUpdated(\n        address indexed registrant,\n        address[] operators,\n        bool indexed filtered\n    );\n\n    /// @notice Emitted when a codeHash is updated.\n    event CodeHashUpdated(\n        address indexed registrant,\n        bytes32 indexed codeHash,\n        bool indexed filtered\n    );\n\n    /// @notice Emitted when multiple codeHashes are updated.\n    event CodeHashesUpdated(\n        address indexed registrant,\n        bytes32[] codeHashes,\n        bool indexed filtered\n    );\n\n    /// @notice Emitted when a subscription is updated.\n    event SubscriptionUpdated(\n        address indexed registrant,\n        address indexed subscription,\n        bool indexed subscribed\n    );\n}\n",
+  "sourcePath": "/Users/atlas-ryan/Downloads/projects/serial-killers-contract/contracts/default_operator_contracts/OperatorFilterRegistryErrorsAndEvents.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/default_operator_contracts/OperatorFilterRegistryErrorsAndEvents.sol",
+    "exportedSymbols": {
+      "OperatorFilterRegistryErrorsAndEvents": [
+        6926
+      ]
+    },
+    "id": 6927,
+    "license": "MIT",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 6795,
+        "literals": [
+          "solidity",
+          "^",
+          "0.8",
+          ".13"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "32:24:23"
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "canonicalName": "OperatorFilterRegistryErrorsAndEvents",
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "fullyImplemented": true,
+        "id": 6926,
+        "linearizedBaseContracts": [
+          6926
+        ],
+        "name": "OperatorFilterRegistryErrorsAndEvents",
+        "nameLocation": "67:37:23",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "documentation": {
+              "id": 6796,
+              "nodeType": "StructuredDocumentation",
+              "src": "111:72:23",
+              "text": "@notice Emitted when trying to register an address that has no code."
+            },
+            "errorSelector": "f575ead8",
+            "id": 6798,
+            "name": "CannotFilterEOAs",
+            "nameLocation": "194:16:23",
+            "nodeType": "ErrorDefinition",
+            "parameters": {
+              "id": 6797,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "210:2:23"
+            },
+            "src": "188:25:23"
+          },
+          {
+            "documentation": {
+              "id": 6799,
+              "nodeType": "StructuredDocumentation",
+              "src": "219:75:23",
+              "text": "@notice Emitted when trying to add an address that is already filtered."
+            },
+            "errorSelector": "0bb44234",
+            "id": 6803,
+            "name": "AddressAlreadyFiltered",
+            "nameLocation": "305:22:23",
+            "nodeType": "ErrorDefinition",
+            "parameters": {
+              "id": 6802,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 6801,
+                  "mutability": "mutable",
+                  "name": "operator",
+                  "nameLocation": "336:8:23",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 6803,
+                  "src": "328:16:23",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 6800,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "328:7:23",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "327:18:23"
+            },
+            "src": "299:47:23"
+          },
+          {
+            "documentation": {
+              "id": 6804,
+              "nodeType": "StructuredDocumentation",
+              "src": "352:74:23",
+              "text": "@notice Emitted when trying to remove an address that is not filtered."
+            },
+            "errorSelector": "45525c0e",
+            "id": 6808,
+            "name": "AddressNotFiltered",
+            "nameLocation": "437:18:23",
+            "nodeType": "ErrorDefinition",
+            "parameters": {
+              "id": 6807,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 6806,
+                  "mutability": "mutable",
+                  "name": "operator",
+                  "nameLocation": "464:8:23",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 6808,
+                  "src": "456:16:23",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 6805,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "456:7:23",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "455:18:23"
+            },
+            "src": "431:43:23"
+          },
+          {
+            "documentation": {
+              "id": 6809,
+              "nodeType": "StructuredDocumentation",
+              "src": "480:75:23",
+              "text": "@notice Emitted when trying to add a codehash that is already filtered."
+            },
+            "errorSelector": "186bea00",
+            "id": 6813,
+            "name": "CodeHashAlreadyFiltered",
+            "nameLocation": "566:23:23",
+            "nodeType": "ErrorDefinition",
+            "parameters": {
+              "id": 6812,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 6811,
+                  "mutability": "mutable",
+                  "name": "codeHash",
+                  "nameLocation": "598:8:23",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 6813,
+                  "src": "590:16:23",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 6810,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "590:7:23",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "589:18:23"
+            },
+            "src": "560:48:23"
+          },
+          {
+            "documentation": {
+              "id": 6814,
+              "nodeType": "StructuredDocumentation",
+              "src": "614:74:23",
+              "text": "@notice Emitted when trying to remove a codehash that is not filtered."
+            },
+            "errorSelector": "478730a8",
+            "id": 6818,
+            "name": "CodeHashNotFiltered",
+            "nameLocation": "699:19:23",
+            "nodeType": "ErrorDefinition",
+            "parameters": {
+              "id": 6817,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 6816,
+                  "mutability": "mutable",
+                  "name": "codeHash",
+                  "nameLocation": "727:8:23",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 6818,
+                  "src": "719:16:23",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 6815,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "719:7:23",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "718:18:23"
+            },
+            "src": "693:44:23"
+          },
+          {
+            "documentation": {
+              "id": 6819,
+              "nodeType": "StructuredDocumentation",
+              "src": "743:75:23",
+              "text": "@notice Emitted when the caller is not the address or EIP-173 \"owner()\""
+            },
+            "errorSelector": "fcf5eff8",
+            "id": 6821,
+            "name": "OnlyAddressOrOwner",
+            "nameLocation": "829:18:23",
+            "nodeType": "ErrorDefinition",
+            "parameters": {
+              "id": 6820,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "847:2:23"
+            },
+            "src": "823:27:23"
+          },
+          {
+            "documentation": {
+              "id": 6822,
+              "nodeType": "StructuredDocumentation",
+              "src": "856:58:23",
+              "text": "@notice Emitted when the registrant is not registered."
+            },
+            "errorSelector": "bfc6c337",
+            "id": 6826,
+            "name": "NotRegistered",
+            "nameLocation": "925:13:23",
+            "nodeType": "ErrorDefinition",
+            "parameters": {
+              "id": 6825,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 6824,
+                  "mutability": "mutable",
+                  "name": "registrant",
+                  "nameLocation": "947:10:23",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 6826,
+                  "src": "939:18:23",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 6823,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "939:7:23",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "938:20:23"
+            },
+            "src": "919:40:23"
+          },
+          {
+            "documentation": {
+              "id": 6827,
+              "nodeType": "StructuredDocumentation",
+              "src": "965:62:23",
+              "text": "@notice Emitted when the registrant is already registered."
+            },
+            "errorSelector": "3a81d6fc",
+            "id": 6829,
+            "name": "AlreadyRegistered",
+            "nameLocation": "1038:17:23",
+            "nodeType": "ErrorDefinition",
+            "parameters": {
+              "id": 6828,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "1055:2:23"
+            },
+            "src": "1032:26:23"
+          },
+          {
+            "documentation": {
+              "id": 6830,
+              "nodeType": "StructuredDocumentation",
+              "src": "1064:62:23",
+              "text": "@notice Emitted when the registrant is already subscribed."
+            },
+            "errorSelector": "73a41649",
+            "id": 6834,
+            "name": "AlreadySubscribed",
+            "nameLocation": "1137:17:23",
+            "nodeType": "ErrorDefinition",
+            "parameters": {
+              "id": 6833,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 6832,
+                  "mutability": "mutable",
+                  "name": "subscription",
+                  "nameLocation": "1163:12:23",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 6834,
+                  "src": "1155:20:23",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 6831,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1155:7:23",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1154:22:23"
+            },
+            "src": "1131:46:23"
+          },
+          {
+            "documentation": {
+              "id": 6835,
+              "nodeType": "StructuredDocumentation",
+              "src": "1183:58:23",
+              "text": "@notice Emitted when the registrant is not subscribed."
+            },
+            "errorSelector": "237e6c28",
+            "id": 6837,
+            "name": "NotSubscribed",
+            "nameLocation": "1252:13:23",
+            "nodeType": "ErrorDefinition",
+            "parameters": {
+              "id": 6836,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "1265:2:23"
+            },
+            "src": "1246:22:23"
+          },
+          {
+            "documentation": {
+              "id": 6838,
+              "nodeType": "StructuredDocumentation",
+              "src": "1274:100:23",
+              "text": "@notice Emitted when trying to update a registration where the registrant is already subscribed."
+            },
+            "errorSelector": "04af4d69",
+            "id": 6842,
+            "name": "CannotUpdateWhileSubscribed",
+            "nameLocation": "1385:27:23",
+            "nodeType": "ErrorDefinition",
+            "parameters": {
+              "id": 6841,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 6840,
+                  "mutability": "mutable",
+                  "name": "subscription",
+                  "nameLocation": "1421:12:23",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 6842,
+                  "src": "1413:20:23",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 6839,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1413:7:23",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1412:22:23"
+            },
+            "src": "1379:56:23"
+          },
+          {
+            "documentation": {
+              "id": 6843,
+              "nodeType": "StructuredDocumentation",
+              "src": "1441:55:23",
+              "text": "@notice Emitted when trying to subscribe to itself."
+            },
+            "errorSelector": "347f118f",
+            "id": 6845,
+            "name": "CannotSubscribeToSelf",
+            "nameLocation": "1507:21:23",
+            "nodeType": "ErrorDefinition",
+            "parameters": {
+              "id": 6844,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "1528:2:23"
+            },
+            "src": "1501:30:23"
+          },
+          {
+            "documentation": {
+              "id": 6846,
+              "nodeType": "StructuredDocumentation",
+              "src": "1537:65:23",
+              "text": "@notice Emitted when trying to subscribe to the zero address."
+            },
+            "errorSelector": "b05574d3",
+            "id": 6848,
+            "name": "CannotSubscribeToZeroAddress",
+            "nameLocation": "1613:28:23",
+            "nodeType": "ErrorDefinition",
+            "parameters": {
+              "id": 6847,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "1641:2:23"
+            },
+            "src": "1607:37:23"
+          },
+          {
+            "documentation": {
+              "id": 6849,
+              "nodeType": "StructuredDocumentation",
+              "src": "1650:95:23",
+              "text": "@notice Emitted when trying to register and the contract is not ownable (EIP-173 \"owner()\")"
+            },
+            "errorSelector": "b2c14140",
+            "id": 6851,
+            "name": "NotOwnable",
+            "nameLocation": "1756:10:23",
+            "nodeType": "ErrorDefinition",
+            "parameters": {
+              "id": 6850,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "1766:2:23"
+            },
+            "src": "1750:19:23"
+          },
+          {
+            "documentation": {
+              "id": 6852,
+              "nodeType": "StructuredDocumentation",
+              "src": "1775:48:23",
+              "text": "@notice Emitted when an address is filtered."
+            },
+            "errorSelector": "a8cf495d",
+            "id": 6856,
+            "name": "AddressFiltered",
+            "nameLocation": "1834:15:23",
+            "nodeType": "ErrorDefinition",
+            "parameters": {
+              "id": 6855,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 6854,
+                  "mutability": "mutable",
+                  "name": "filtered",
+                  "nameLocation": "1858:8:23",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 6856,
+                  "src": "1850:16:23",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 6853,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1850:7:23",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1849:18:23"
+            },
+            "src": "1828:40:23"
+          },
+          {
+            "documentation": {
+              "id": 6857,
+              "nodeType": "StructuredDocumentation",
+              "src": "1874:48:23",
+              "text": "@notice Emitted when a codeHash is filtered."
+            },
+            "errorSelector": "5f3853a9",
+            "id": 6863,
+            "name": "CodeHashFiltered",
+            "nameLocation": "1933:16:23",
+            "nodeType": "ErrorDefinition",
+            "parameters": {
+              "id": 6862,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 6859,
+                  "mutability": "mutable",
+                  "name": "account",
+                  "nameLocation": "1958:7:23",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 6863,
+                  "src": "1950:15:23",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 6858,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1950:7:23",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 6861,
+                  "mutability": "mutable",
+                  "name": "codeHash",
+                  "nameLocation": "1975:8:23",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 6863,
+                  "src": "1967:16:23",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 6860,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1967:7:23",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1949:35:23"
+            },
+            "src": "1927:58:23"
+          },
+          {
+            "documentation": {
+              "id": 6864,
+              "nodeType": "StructuredDocumentation",
+              "src": "1991:79:23",
+              "text": "@notice Emited when trying to register to a registrant with a subscription."
+            },
+            "errorSelector": "768e549c",
+            "id": 6868,
+            "name": "CannotSubscribeToRegistrantWithSubscription",
+            "nameLocation": "2081:43:23",
+            "nodeType": "ErrorDefinition",
+            "parameters": {
+              "id": 6867,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 6866,
+                  "mutability": "mutable",
+                  "name": "registrant",
+                  "nameLocation": "2133:10:23",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 6868,
+                  "src": "2125:18:23",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 6865,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "2125:7:23",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "2124:20:23"
+            },
+            "src": "2075:70:23"
+          },
+          {
+            "documentation": {
+              "id": 6869,
+              "nodeType": "StructuredDocumentation",
+              "src": "2151:67:23",
+              "text": "@notice Emitted when trying to copy a registration from itself."
+            },
+            "errorSelector": "1acab6b8",
+            "id": 6871,
+            "name": "CannotCopyFromSelf",
+            "nameLocation": "2229:18:23",
+            "nodeType": "ErrorDefinition",
+            "parameters": {
+              "id": 6870,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "2247:2:23"
+            },
+            "src": "2223:27:23"
+          },
+          {
+            "anonymous": false,
+            "documentation": {
+              "id": 6872,
+              "nodeType": "StructuredDocumentation",
+              "src": "2256:51:23",
+              "text": "@notice Emitted when a registration is updated."
+            },
+            "eventSelector": "86d03f430c7616021073d7a71766f632f1ce19f289aa989534d9f4732253eb59",
+            "id": 6878,
+            "name": "RegistrationUpdated",
+            "nameLocation": "2318:19:23",
+            "nodeType": "EventDefinition",
+            "parameters": {
+              "id": 6877,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 6874,
+                  "indexed": true,
+                  "mutability": "mutable",
+                  "name": "registrant",
+                  "nameLocation": "2363:10:23",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 6878,
+                  "src": "2347:26:23",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 6873,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "2347:7:23",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 6876,
+                  "indexed": true,
+                  "mutability": "mutable",
+                  "name": "registered",
+                  "nameLocation": "2396:10:23",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 6878,
+                  "src": "2383:23:23",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 6875,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "2383:4:23",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "2337:75:23"
+            },
+            "src": "2312:101:23"
+          },
+          {
+            "anonymous": false,
+            "documentation": {
+              "id": 6879,
+              "nodeType": "StructuredDocumentation",
+              "src": "2419:48:23",
+              "text": "@notice Emitted when an operator is updated."
+            },
+            "eventSelector": "2738289d9deecdc30eb8ffc42876633caecca1ffa166e4efa89f408e17373a1a",
+            "id": 6887,
+            "name": "OperatorUpdated",
+            "nameLocation": "2478:15:23",
+            "nodeType": "EventDefinition",
+            "parameters": {
+              "id": 6886,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 6881,
+                  "indexed": true,
+                  "mutability": "mutable",
+                  "name": "registrant",
+                  "nameLocation": "2519:10:23",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 6887,
+                  "src": "2503:26:23",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 6880,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "2503:7:23",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 6883,
+                  "indexed": true,
+                  "mutability": "mutable",
+                  "name": "operator",
+                  "nameLocation": "2555:8:23",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 6887,
+                  "src": "2539:24:23",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 6882,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "2539:7:23",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 6885,
+                  "indexed": true,
+                  "mutability": "mutable",
+                  "name": "filtered",
+                  "nameLocation": "2586:8:23",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 6887,
+                  "src": "2573:21:23",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 6884,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "2573:4:23",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "2493:107:23"
+            },
+            "src": "2472:129:23"
+          },
+          {
+            "anonymous": false,
+            "documentation": {
+              "id": 6888,
+              "nodeType": "StructuredDocumentation",
+              "src": "2607:56:23",
+              "text": "@notice Emitted when multiple operators are updated."
+            },
+            "eventSelector": "02b85afdacb82d5512c6f05566b3018677ffcbd7e5f75e498bc64081131cbd6c",
+            "id": 6897,
+            "name": "OperatorsUpdated",
+            "nameLocation": "2674:16:23",
+            "nodeType": "EventDefinition",
+            "parameters": {
+              "id": 6896,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 6890,
+                  "indexed": true,
+                  "mutability": "mutable",
+                  "name": "registrant",
+                  "nameLocation": "2716:10:23",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 6897,
+                  "src": "2700:26:23",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 6889,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "2700:7:23",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 6893,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "operators",
+                  "nameLocation": "2746:9:23",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 6897,
+                  "src": "2736:19:23",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_address_$dyn_memory_ptr",
+                    "typeString": "address[]"
+                  },
+                  "typeName": {
+                    "baseType": {
+                      "id": 6891,
+                      "name": "address",
+                      "nodeType": "ElementaryTypeName",
+                      "src": "2736:7:23",
+                      "stateMutability": "nonpayable",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "id": 6892,
+                    "nodeType": "ArrayTypeName",
+                    "src": "2736:9:23",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_array$_t_address_$dyn_storage_ptr",
+                      "typeString": "address[]"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 6895,
+                  "indexed": true,
+                  "mutability": "mutable",
+                  "name": "filtered",
+                  "nameLocation": "2778:8:23",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 6897,
+                  "src": "2765:21:23",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 6894,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "2765:4:23",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "2690:102:23"
+            },
+            "src": "2668:125:23"
+          },
+          {
+            "anonymous": false,
+            "documentation": {
+              "id": 6898,
+              "nodeType": "StructuredDocumentation",
+              "src": "2799:47:23",
+              "text": "@notice Emitted when a codeHash is updated."
+            },
+            "eventSelector": "b8036058bafea884aabc446ca15619fd86f5464a4ad96f64164ad6f77444354d",
+            "id": 6906,
+            "name": "CodeHashUpdated",
+            "nameLocation": "2857:15:23",
+            "nodeType": "EventDefinition",
+            "parameters": {
+              "id": 6905,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 6900,
+                  "indexed": true,
+                  "mutability": "mutable",
+                  "name": "registrant",
+                  "nameLocation": "2898:10:23",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 6906,
+                  "src": "2882:26:23",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 6899,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "2882:7:23",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 6902,
+                  "indexed": true,
+                  "mutability": "mutable",
+                  "name": "codeHash",
+                  "nameLocation": "2934:8:23",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 6906,
+                  "src": "2918:24:23",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 6901,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "2918:7:23",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 6904,
+                  "indexed": true,
+                  "mutability": "mutable",
+                  "name": "filtered",
+                  "nameLocation": "2965:8:23",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 6906,
+                  "src": "2952:21:23",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 6903,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "2952:4:23",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "2872:107:23"
+            },
+            "src": "2851:129:23"
+          },
+          {
+            "anonymous": false,
+            "documentation": {
+              "id": 6907,
+              "nodeType": "StructuredDocumentation",
+              "src": "2986:57:23",
+              "text": "@notice Emitted when multiple codeHashes are updated."
+            },
+            "eventSelector": "34e9f70c5a16a4df2a396cf0cbc4735eb3c7fb6ae40aaa0b34be7720121d1b96",
+            "id": 6916,
+            "name": "CodeHashesUpdated",
+            "nameLocation": "3054:17:23",
+            "nodeType": "EventDefinition",
+            "parameters": {
+              "id": 6915,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 6909,
+                  "indexed": true,
+                  "mutability": "mutable",
+                  "name": "registrant",
+                  "nameLocation": "3097:10:23",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 6916,
+                  "src": "3081:26:23",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 6908,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "3081:7:23",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 6912,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "codeHashes",
+                  "nameLocation": "3127:10:23",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 6916,
+                  "src": "3117:20:23",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_bytes32_$dyn_memory_ptr",
+                    "typeString": "bytes32[]"
+                  },
+                  "typeName": {
+                    "baseType": {
+                      "id": 6910,
+                      "name": "bytes32",
+                      "nodeType": "ElementaryTypeName",
+                      "src": "3117:7:23",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bytes32",
+                        "typeString": "bytes32"
+                      }
+                    },
+                    "id": 6911,
+                    "nodeType": "ArrayTypeName",
+                    "src": "3117:9:23",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_array$_t_bytes32_$dyn_storage_ptr",
+                      "typeString": "bytes32[]"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 6914,
+                  "indexed": true,
+                  "mutability": "mutable",
+                  "name": "filtered",
+                  "nameLocation": "3160:8:23",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 6916,
+                  "src": "3147:21:23",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 6913,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "3147:4:23",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "3071:103:23"
+            },
+            "src": "3048:127:23"
+          },
+          {
+            "anonymous": false,
+            "documentation": {
+              "id": 6917,
+              "nodeType": "StructuredDocumentation",
+              "src": "3181:51:23",
+              "text": "@notice Emitted when a subscription is updated."
+            },
+            "eventSelector": "0038c54977604f1a5c0a3604cbbecd0153c81e3131799ead95755e8bb5d5b9e8",
+            "id": 6925,
+            "name": "SubscriptionUpdated",
+            "nameLocation": "3243:19:23",
+            "nodeType": "EventDefinition",
+            "parameters": {
+              "id": 6924,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 6919,
+                  "indexed": true,
+                  "mutability": "mutable",
+                  "name": "registrant",
+                  "nameLocation": "3288:10:23",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 6925,
+                  "src": "3272:26:23",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 6918,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "3272:7:23",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 6921,
+                  "indexed": true,
+                  "mutability": "mutable",
+                  "name": "subscription",
+                  "nameLocation": "3324:12:23",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 6925,
+                  "src": "3308:28:23",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 6920,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "3308:7:23",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 6923,
+                  "indexed": true,
+                  "mutability": "mutable",
+                  "name": "subscribed",
+                  "nameLocation": "3359:10:23",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 6925,
+                  "src": "3346:23:23",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 6922,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "3346:4:23",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "3262:113:23"
+            },
+            "src": "3237:139:23"
+          }
+        ],
+        "scope": 6927,
+        "src": "58:3320:23",
+        "usedErrors": [
+          6798,
+          6803,
+          6808,
+          6813,
+          6818,
+          6821,
+          6826,
+          6829,
+          6834,
+          6837,
+          6842,
+          6845,
+          6848,
+          6851,
+          6856,
+          6863,
+          6868,
+          6871
+        ],
+        "usedEvents": [
+          6878,
+          6887,
+          6897,
+          6906,
+          6916,
+          6925
+        ]
+      }
+    ],
+    "src": "32:3347:23"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.8.21+commit.d9974bed.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.13",
+  "updatedAt": "2023-08-19T19:16:06.997Z",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "errors": {
+      "AddressAlreadyFiltered(address)": [
+        {
+          "notice": "Emitted when trying to add an address that is already filtered."
+        }
+      ],
+      "AddressFiltered(address)": [
+        {
+          "notice": "Emitted when an address is filtered."
+        }
+      ],
+      "AddressNotFiltered(address)": [
+        {
+          "notice": "Emitted when trying to remove an address that is not filtered."
+        }
+      ],
+      "AlreadyRegistered()": [
+        {
+          "notice": "Emitted when the registrant is already registered."
+        }
+      ],
+      "AlreadySubscribed(address)": [
+        {
+          "notice": "Emitted when the registrant is already subscribed."
+        }
+      ],
+      "CannotCopyFromSelf()": [
+        {
+          "notice": "Emitted when trying to copy a registration from itself."
+        }
+      ],
+      "CannotFilterEOAs()": [
+        {
+          "notice": "Emitted when trying to register an address that has no code."
+        }
+      ],
+      "CannotSubscribeToRegistrantWithSubscription(address)": [
+        {
+          "notice": "Emited when trying to register to a registrant with a subscription."
+        }
+      ],
+      "CannotSubscribeToSelf()": [
+        {
+          "notice": "Emitted when trying to subscribe to itself."
+        }
+      ],
+      "CannotSubscribeToZeroAddress()": [
+        {
+          "notice": "Emitted when trying to subscribe to the zero address."
+        }
+      ],
+      "CannotUpdateWhileSubscribed(address)": [
+        {
+          "notice": "Emitted when trying to update a registration where the registrant is already subscribed."
+        }
+      ],
+      "CodeHashAlreadyFiltered(bytes32)": [
+        {
+          "notice": "Emitted when trying to add a codehash that is already filtered."
+        }
+      ],
+      "CodeHashFiltered(address,bytes32)": [
+        {
+          "notice": "Emitted when a codeHash is filtered."
+        }
+      ],
+      "CodeHashNotFiltered(bytes32)": [
+        {
+          "notice": "Emitted when trying to remove a codehash that is not filtered."
+        }
+      ],
+      "NotOwnable()": [
+        {
+          "notice": "Emitted when trying to register and the contract is not ownable (EIP-173 \"owner()\")"
+        }
+      ],
+      "NotRegistered(address)": [
+        {
+          "notice": "Emitted when the registrant is not registered."
+        }
+      ],
+      "NotSubscribed()": [
+        {
+          "notice": "Emitted when the registrant is not subscribed."
+        }
+      ],
+      "OnlyAddressOrOwner()": [
+        {
+          "notice": "Emitted when the caller is not the address or EIP-173 \"owner()\""
+        }
+      ]
+    },
+    "events": {
+      "CodeHashUpdated(address,bytes32,bool)": {
+        "notice": "Emitted when a codeHash is updated."
+      },
+      "CodeHashesUpdated(address,bytes32[],bool)": {
+        "notice": "Emitted when multiple codeHashes are updated."
+      },
+      "OperatorUpdated(address,address,bool)": {
+        "notice": "Emitted when an operator is updated."
+      },
+      "OperatorsUpdated(address,address[],bool)": {
+        "notice": "Emitted when multiple operators are updated."
+      },
+      "RegistrationUpdated(address,bool)": {
+        "notice": "Emitted when a registration is updated."
+      },
+      "SubscriptionUpdated(address,address,bool)": {
+        "notice": "Emitted when a subscription is updated."
+      }
+    },
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  }
+}
